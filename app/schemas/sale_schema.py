@@ -4,7 +4,6 @@ from datetime import datetime
 class SaleCreate(BaseModel):
     product_id: int
     quantity: int
-    date: datetime
 
 class SaleResponse(BaseModel):
     id: int
