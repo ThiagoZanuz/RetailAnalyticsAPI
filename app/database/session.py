@@ -1,5 +1,5 @@
 from sqlalchemy.orm import sessionmaker, declarative_base, Session
-from sqlalchemy import Depends
+from fastapi import Depends
 from typing import Annotated
 from app.database.connection import engine
 
