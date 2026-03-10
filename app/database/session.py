@@ -1,4 +1,6 @@
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker, declarative_base, Session
+from sqlalchemy import Depends
+from typing import Annotated
 from app.database.connection import engine
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -11,3 +13,5 @@ def get_db():
         yield db
     finally:
         db.close()
+
+db_dependency = Annotated[Session, Depends(get_db)]
