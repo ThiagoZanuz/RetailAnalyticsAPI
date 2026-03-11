@@ -1,8 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, UploadFile, File
 from datetime import datetime
 from app.database.session import db_dependency
 from app.models.sale import Sale
 from app.schemas.sale_schema import SaleCreate, SaleResponse
+from app.services import sales_service
 
 router = APIRouter()
 
@@ -17,3 +18,7 @@ def create_sale(sale: SaleCreate, db: db_dependency):
 @router.get('/sales', response_model=list[SaleResponse])
 def get_sales(db: db_dependency):
     return db.query(Sale).all()
+
+@router.post("/sales/upload")
+def upload_sales(db: db_dependency, file: UploadFile = File(...)):
+    return sales_service.process_csv(file.file, db)
