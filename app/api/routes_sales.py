@@ -1,11 +1,12 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, Depends
 from datetime import datetime
 from app.database.session import db_dependency
 from app.models.sale import Sale
 from app.schemas.sale_schema import SaleCreate, SaleResponse
 from app.services import sales_service
+from app.services.auth_service import get_current_user
 
-router = APIRouter()
+router = APIRouter(tags=['Sales'],dependencies=[Depends(get_current_user)])
 
 @router.post('/sales', response_model=SaleResponse)
 def create_sale(sale: SaleCreate, db: db_dependency):

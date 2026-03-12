@@ -1,8 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from app.database.session import db_dependency
 from app.services import analytics_service
+from app.services.auth_service import get_current_user
 
-router = APIRouter()
+router = APIRouter(tags=['Analytics'], dependencies=[Depends(get_current_user)])
 
 @router.get("/analytics/revenue")
 def get_revenue(db: db_dependency):

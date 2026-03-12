@@ -1,9 +1,10 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from app.database.session import db_dependency
 from app.models.product import Product
 from app.schemas.product_schema import ProductCreate, ProductResponse
+from app.services.auth_service import get_current_user
 
-router = APIRouter()
+router = APIRouter(tags=['Products'],dependencies=[Depends(get_current_user)])
 
 @router.post('/products', response_model=ProductResponse)
 def create_product(product: ProductCreate, db: db_dependency):
