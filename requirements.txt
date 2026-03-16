@@ -1,11 +1,9 @@
 fastapi
 uvicorn
 sqlalchemy
-alembic
 psycopg2-binary
 pandas
 python-multipart
-pyjwt
 passlib
 python-dotenv
 python-jose[cryptography]
